@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A simple interactive model of gaze following through a group."
+    />
+    <title>Gaze Following</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="intro">
+        <p class="eyebrow">Computational representation · Version 1</p>
+        <h1>Gaze Following</h1>
+        <p class="intro-copy">
+          What might happen when looking up spreads through a nearby group?
+        </p>
+      </header>
+
+      <section class="simulation-card" aria-labelledby="simulation-title">
+        <div class="control-bar">
+          <div>
+            <p class="control-label" id="simulation-title">Minimum exposure</p>
+            <div class="threshold-control" role="radiogroup" aria-labelledby="simulation-title">
+              <label>
+                <input type="radio" name="threshold" value="1" checked />
+                <span>1 neighbor</span>
+              </label>
+              <label>
+                <input type="radio" name="threshold" value="2" />
+                <span>2 neighbors</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="button button-primary" id="start-button" type="button">Start</button>
+            <button class="button button-secondary" id="reset-button" type="button">Reset</button>
+          </div>
+
+          <div class="counter" aria-live="polite">
+            <span id="looking-count">0</span><span class="counter-total"> / 8</span>
+            <small>looking up</small>
+          </div>
+        </div>
+
+        <div class="scene-wrap">
+          <div
+            class="scene"
+            id="scene"
+            role="img"
+            aria-label="Eight people standing at different positions. All are initially looking forward."
+          >
+            <div class="sky-note" aria-hidden="true">
+              <span class="sky-arrow">↑</span>
+              <span>looking up</span>
+            </div>
+            <div class="ground" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <p class="status" id="status" aria-live="polite">Choose a threshold, then press Start.</p>
+      </section>
+
+      <section class="model-notes" aria-labelledby="rules-title">
+        <div>
+          <p class="section-number">01</p>
+          <h2 id="rules-title">How the model works</h2>
+        </div>
+        <div class="rule-grid">
+          <article>
+            <span class="rule-index">A</span>
+            <h3>Begin</h3>
+            <p>Two predefined people look up when the simulation starts.</p>
+          </article>
+          <article>
+            <span class="rule-index">B</span>
+            <h3>Notice</h3>
+            <p>Each person counts looking-up neighbors within the fixed 130-unit radius.</p>
+          </article>
+          <article>
+            <span class="rule-index">C</span>
+            <h3>Update together</h3>
+            <p>People who meet the threshold change at the end of the step, all at once.</p>
+          </article>
+        </div>
+        <p class="assumption-note">
+          <strong>A chosen model, not a human prediction.</strong> Proximity, the radius, and the exposure
+          threshold are simplified assumptions selected to explore the phenomenon. They are not established
+          facts about how people behave.
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
