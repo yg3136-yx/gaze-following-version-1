@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080">
+  <defs>
+    <style>
+      .title { font: 700 48px Arial, Helvetica, sans-serif; fill: #17212b; }
+      .subtitle { font: 400 22px Arial, Helvetica, sans-serif; fill: #586674; }
+      .panel-title { font: 700 30px Arial, Helvetica, sans-serif; fill: #17212b; }
+      .panel-subtitle { font: 400 18px Arial, Helvetica, sans-serif; fill: #586674; }
+      .label { font: 700 18px Arial, Helvetica, sans-serif; fill: #17212b; text-anchor: middle; }
+      .coord { font: 400 13px Arial, Helvetica, sans-serif; fill: #6c7883; text-anchor: middle; }
+      .step { font: 700 14px Arial, Helvetica, sans-serif; fill: #9a4c13; text-anchor: middle; }
+      .note { font: 400 17px Arial, Helvetica, sans-serif; fill: #42515f; }
+      .note-strong { font: 700 17px Arial, Helvetica, sans-serif; fill: #17212b; }
+      .small { font: 400 15px Arial, Helvetica, sans-serif; fill: #586674; }
+      .network { stroke: #aeb9c1; stroke-width: 3; }
+      .radius { fill: #2c6e9f; fill-opacity: .05; stroke: #2c6e9f; stroke-width: 3; stroke-dasharray: 10 8; }
+      .seed { fill: #235f8f; stroke: #173d5c; stroke-width: 5; }
+      .follower { fill: #e49a4a; stroke: #9a4c13; stroke-width: 4; }
+      .forward { fill: #f7f8f8; stroke: #7f8c96; stroke-width: 4; }
+      .blocked { fill: #f7f8f8; stroke: #ba5b4f; stroke-width: 5; }
+      .head-arrow { stroke: #235f8f; stroke-width: 5; stroke-linecap: round; fill: none; }
+      .forward-line { stroke: #7f8c96; stroke-width: 5; stroke-linecap: round; }
+    </style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#235f8f"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9a4c13"/>
+    </marker>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#1a2730" flood-opacity=".12"/>
+    </filter>
+  </defs>
+
+  <rect width="1800" height="1080" fill="#f4f1ea"/>
+  <text x="70" y="80" class="title">Gaze Following — Version 1</text>
+  <text x="70" y="120" class="subtitle">Retrospective design diagram · fixed positions · proximity radius = 130 model units</text>
+
+  <g transform="translate(60,165)">
+    <rect width="810" height="790" rx="24" fill="#fffdf9" filter="url(#soft-shadow)"/>
+    <text x="34" y="55" class="panel-title">Threshold: 1 neighbor</text>
+    <text x="34" y="86" class="panel-subtitle">A single nearby person is enough, so the behavior crosses each bridge.</text>
+
+    <!-- Model-to-diagram transform: x' = 30 + 0.78x, y' = 100 + 0.78y -->
+    <g transform="translate(30,100) scale(.78)">
+      <circle cx="180" cy="220" r="130" class="radius"/>
+      <text x="62" y="72" class="note" transform="scale(1.28205)">130-unit radius around P1</text>
+
+      <g class="network">
+        <line x1="180" y1="220" x2="290" y2="220"/>
+        <line x1="180" y1="220" x2="235" y2="320"/>
+        <line x1="180" y1="220" x2="95" y2="310"/>
+        <line x1="290" y1="220" x2="235" y2="320"/>
+        <line x1="290" y1="220" x2="345" y2="320"/>
+        <line x1="235" y1="320" x2="345" y2="320"/>
+        <line x1="345" y1="320" x2="470" y2="320"/>
+        <line x1="470" y1="320" x2="590" y2="280"/>
+        <line x1="95" y1="310" x2="90" y2="435"/>
+      </g>
+
+      <!-- Threshold 1 spread directions -->
+      <g stroke="#9a4c13" stroke-width="4" fill="none" marker-end="url(#arrow-orange)">
+        <path d="M210 235 Q225 260 232 285"/>
+        <path d="M315 240 Q333 265 340 285"/>
+        <path d="M158 240 Q120 255 105 282"/>
+        <path d="M375 320 L435 320"/>
+        <path d="M495 312 L555 292"/>
+        <path d="M94 340 L91 400"/>
+      </g>
+
+      <!-- People -->
+      <g transform="translate(180 220)"><circle r="30" class="seed"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(290 220)"><circle r="30" class="seed"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(235 320)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(345 320)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(470 320)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(590 280)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(95 310)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(90 435)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+    </g>
+
+    <g transform="translate(0,18)">
+      <text x="200" y="298" class="label">P1</text><text x="200" y="318" class="coord">(180, 220)</text><text x="200" y="338" class="step">START</text>
+      <text x="286" y="298" class="label">P2</text><text x="286" y="318" class="coord">(290, 220)</text><text x="286" y="338" class="step">START</text>
+      <text x="243" y="376" class="label">P3</text><text x="243" y="396" class="coord">(235, 320)</text><text x="243" y="416" class="step">STEP 1</text>
+      <text x="329" y="376" class="label">P4</text><text x="329" y="396" class="coord">(345, 320)</text><text x="329" y="416" class="step">STEP 1</text>
+      <text x="427" y="376" class="label">P5</text><text x="427" y="396" class="coord">(470, 320)</text><text x="427" y="416" class="step">STEP 2</text>
+      <text x="520" y="345" class="label">P6</text><text x="520" y="365" class="coord">(590, 280)</text><text x="520" y="385" class="step">STEP 3</text>
+      <text x="134" y="368" class="label">P7</text><text x="134" y="388" class="coord">(95, 310)</text><text x="134" y="408" class="step">STEP 1</text>
+      <text x="130" y="465" class="label">P8</text><text x="130" y="485" class="coord">(90, 435)</text><text x="130" y="505" class="step">STEP 2</text>
+    </g>
+
+    <line x1="34" y1="630" x2="776" y2="630" stroke="#d6d9d7" stroke-width="2"/>
+    <text x="34" y="672" class="note-strong">Result: 8 / 8 looking up</text>
+    <text x="34" y="706" class="note">Step 1: P3, P4, P7 · Step 2: P5, P8 · Step 3: P6</text>
+    <text x="34" y="746" class="small">Orange arrows show the route of the cascade. Gray lines connect every pair within 130 units.</text>
+  </g>
+
+  <g transform="translate(930,165)">
+    <rect width="810" height="790" rx="24" fill="#fffdf9" filter="url(#soft-shadow)"/>
+    <text x="34" y="55" class="panel-title">Threshold: 2 neighbors</text>
+    <text x="34" y="86" class="panel-subtitle">Two nearby people must already be looking up.</text>
+
+    <g transform="translate(30,100) scale(.78)">
+      <g class="network">
+        <line x1="180" y1="220" x2="290" y2="220"/>
+        <line x1="180" y1="220" x2="235" y2="320"/>
+        <line x1="180" y1="220" x2="95" y2="310"/>
+        <line x1="290" y1="220" x2="235" y2="320"/>
+        <line x1="290" y1="220" x2="345" y2="320"/>
+        <line x1="235" y1="320" x2="345" y2="320"/>
+        <line x1="345" y1="320" x2="470" y2="320"/>
+        <line x1="470" y1="320" x2="590" y2="280"/>
+        <line x1="95" y1="310" x2="90" y2="435"/>
+      </g>
+
+      <g stroke="#9a4c13" stroke-width="4" fill="none" marker-end="url(#arrow-orange)">
+        <path d="M210 235 Q225 260 232 285"/>
+        <path d="M265 245 Q250 270 240 285"/>
+        <path d="M260 320 L310 320"/>
+        <path d="M315 245 Q330 270 340 285"/>
+      </g>
+
+      <g transform="translate(180 220)"><circle r="30" class="seed"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(290 220)"><circle r="30" class="seed"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(235 320)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(345 320)"><circle r="30" class="follower"/><path d="M10 -26 L27 -47" class="head-arrow" marker-end="url(#arrow-blue)"/></g>
+      <g transform="translate(470 320)"><circle r="30" class="blocked"/><line x1="-13" y1="0" x2="18" y2="0" class="forward-line"/></g>
+      <g transform="translate(590 280)"><circle r="30" class="forward"/><line x1="-13" y1="0" x2="18" y2="0" class="forward-line"/></g>
+      <g transform="translate(95 310)"><circle r="30" class="blocked"/><line x1="-13" y1="0" x2="18" y2="0" class="forward-line"/></g>
+      <g transform="translate(90 435)"><circle r="30" class="forward"/><line x1="-13" y1="0" x2="18" y2="0" class="forward-line"/></g>
+    </g>
+
+    <g transform="translate(0,18)">
+      <text x="200" y="298" class="label">P1</text><text x="200" y="318" class="coord">(180, 220)</text><text x="200" y="338" class="step">START</text>
+      <text x="286" y="298" class="label">P2</text><text x="286" y="318" class="coord">(290, 220)</text><text x="286" y="338" class="step">START</text>
+      <text x="243" y="376" class="label">P3</text><text x="243" y="396" class="coord">(235, 320)</text><text x="243" y="416" class="step">STEP 1</text>
+      <text x="329" y="376" class="label">P4</text><text x="329" y="396" class="coord">(345, 320)</text><text x="329" y="416" class="step">STEP 2</text>
+      <text x="427" y="376" class="label">P5</text><text x="427" y="396" class="coord">(470, 320)</text><text x="427" y="416" class="step">1 OF 2</text>
+      <text x="520" y="345" class="label">P6</text><text x="520" y="365" class="coord">(590, 280)</text><text x="520" y="385" class="step">0 OF 2</text>
+      <text x="134" y="368" class="label">P7</text><text x="134" y="388" class="coord">(95, 310)</text><text x="134" y="408" class="step">1 OF 2</text>
+      <text x="130" y="465" class="label">P8</text><text x="130" y="485" class="coord">(90, 435)</text><text x="130" y="505" class="step">0 OF 2</text>
+    </g>
+
+    <line x1="34" y1="630" x2="776" y2="630" stroke="#d6d9d7" stroke-width="2"/>
+    <text x="34" y="672" class="note-strong">Result: 4 / 8 looking up</text>
+    <text x="34" y="706" class="note">P3 joins first; P4 joins next. P5 and P7 each have only one looking-up neighbor.</text>
+    <text x="34" y="746" class="small">The spread stops because no remaining forward-looking person reaches two exposures.</text>
+  </g>
+
+  <g transform="translate(70,995)">
+    <circle cx="14" cy="0" r="14" class="seed"/><text x="40" y="6" class="small">initial person</text>
+    <circle cx="210" cy="0" r="14" class="follower"/><text x="236" y="6" class="small">later follows</text>
+    <circle cx="405" cy="0" r="14" class="forward"/><line x1="397" y1="0" x2="413" y2="0" class="forward-line"/><text x="431" y="6" class="small">remains forward</text>
+    <line x1="640" y1="0" x2="690" y2="0" class="network"/><text x="708" y="6" class="small">within 130 units</text>
+    <text x="1680" y="6" class="small" text-anchor="end">Chosen assumptions, not established facts about human behavior</text>
+  </g>
+</svg>
